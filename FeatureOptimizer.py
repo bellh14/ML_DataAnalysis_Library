@@ -34,7 +34,7 @@ class FeatureOptimizer:
         feature_importances = pd.DataFrame(pd.concat([pd.DataFrame(rf.feature_names_in_), pd.DataFrame(
             rf.feature_importances_)], axis=1))
         feature_importances.columns = ['feature', 'importance']
-        # feature_importances = np.transpose(feature_importances)
+        # feature_importances = np.transposfe(feature_importances)
         print(feature_importances)
         Visualizer.Visualizer(feature_importances).plt_bar_plot(
             x=feature_importances['feature'], y=feature_importances['importance'])
