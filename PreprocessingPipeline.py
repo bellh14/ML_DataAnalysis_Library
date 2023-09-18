@@ -1,45 +1,19 @@
 import pandas as pd
 import Imputer
 from sklearn.preprocessing import Normalizer
+from Dataset import Dataset
+from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 
 
 class PreprocessingPipeline:
 
-    def __init__(self, data: pd.DataFrame, copy: bool = True):
-        self.data = data.copy() if copy else data
+    def __init__(self, data: Dataset):
+        self.data = data.copy()
         self.imputer = Imputer.Imputer(self.data)
 
-    def correlation_matrix(self, full_matrix: bool = False) -> pd.DataFrame:
-        try:
-            if not full_matrix:
-                return self.data.corr()['target'].sort_values(ascending=False)
-            else:
-                return self.data.corr()
-        except ValueError:
-            print("The dataframe contains categorical values.")
-            return None
-
-    def transpose_correlation_matrix(self, data: pd.DataFrame,
-                                     file_name: str) -> pd.DataFrame:
-
-        data.to_csv(f'dcmi/correlation_matrixes/{file_name}.csv', index=True)
-
-        corr = pd.DataFrame(pd.read_csv(
-            f'dcmi/correlation_matrixes/{file_name}.csv'))
-
-        corr = corr.transpose()
-
-        corr.to_csv(
-            f'dcmi/correlation_matrixes/{file_name}.csv',
-            index=False, header=False)
-
-        corr = pd.DataFrame(pd.read_csv(
-            f'dcmi/correlation_matrixes/{file_name}.csv'))
-
-        return corr
-
     @staticmethod
-    def split_labels(data, label: str = 'target') -> pd.DataFrame:
+    def split_labels(data: pd.DataFrame,
+                     label: str = 'target') -> pd.DataFrame:
         labels = data.pop(label)
         return labels
 
@@ -63,8 +37,36 @@ class PreprocessingPipeline:
         data = self.imputer.fill_null_values_with_median(save_csv=save_csv)
         return data
 
-    @staticmethod
-    def normalizer(data) -> pd.DataFrame:
-        transformer = Normalizer().fit(data)
-        data = pd.DataFrame(transformer.transform(data))
+    def fill_null_values_with_custom(self, value: str,) -> pd.DataFrame:
+        data = self.imputer.fill_null_values_with_custom(value)
         return data
+
+    def normalizer(self) -> None:
+        train_transformer = Normalizer().fit(self.data.train_data)
+        train_transformer.transform(self.data.train_data)
+        test_transformer = Normalizer().fit(self.data.test_data)
+        test_transformer.transform(self.data.test_data)
+
+    def drop_feature(self, feature: str) -> None:
+        self.data.train_data.drop(feature, axis=1, inplace=True)
+        self.data.test_data.drop(feature, axis=1, inplace=True)
+
+    def drop_features(self, features: list) -> None:
+        for feature in features:
+            self.drop_feature(feature)
+
+    def drop_by_null_threshold(self, threshold: float) -> None:
+        self.data.train_data.dropna(thresh=threshold, axis=1, inplace=True)
+        self.data.test_data.dropna(thresh=threshold, axis=1, inplace=True)
+
+    def ordinal_encode(self) -> None:
+        ordinal_encoder = OrdinalEncoder()
+        ordinal_encoder.fit(self.data.train_data)
+        ordinal_encoder.transform(self.data.train_data)
+        ordinal_encoder.transform(self.data.test_data)
+
+    def one_hot_encode(self) -> None:
+        one_hot_encoder = OneHotEncoder()
+        one_hot_encoder.fit(self.data.train_data)
+        one_hot_encoder.transform(self.data.train_data)
+        one_hot_encoder.transform(self.data.test_data)

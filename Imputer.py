@@ -62,3 +62,13 @@ class Imputer:
                 f'{self.folder}/{self.base_file_name}_null_{value}_fill')
 
         return self.data
+
+    def fill_null_values_with_mode(self,
+                                   save_csv: bool = False) -> pd.DataFrame:
+        self.data.fillna(self.data.mode(), inplace=True)
+
+        if save_csv:
+            self.data.save_csv_data(
+                f'{self.folder}/{self.base_file_name}_null_mode_fill')
+
+        return self.data

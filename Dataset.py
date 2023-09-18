@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 class Dataset:
@@ -13,7 +14,13 @@ class Dataset:
 
         self.train_data = self.load_train_data()
         self.test_data = self.load_test_data()
+
+        self.train_labels = None
+        self.test_labels = None
         self.validation_split = validation_split
+
+        self.categorial_columns = self.get_categorical_columns()
+        self.numerical_columns = self.get_numerical_columns()
 
     def load_train_data(self) -> pd.DataFrame:
         return pd.read_csv(f'{self.folder_name}/{self.train_file_name}')
@@ -58,3 +65,9 @@ class Dataset:
         train_data = self.data.sample(frac=validation_split)
         validation_data = self.data.drop(train_data.index)
         return train_data, validation_data
+
+    def get_categorical_columns(self) -> pd.DataFrame:
+        return self.train_data.select_dtypes(include=[object]).columns
+    
+    def get_numerical_columns(self) -> pd.DataFrame:
+        return self.train_data.select_dtypes(include=[np.number]).columns
