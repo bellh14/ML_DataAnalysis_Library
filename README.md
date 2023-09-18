@@ -5,6 +5,10 @@ The goal of this is to simplify the time needed to develop and test data cleanin
 
 Having to load, clean, analyze, train, and then evaluate different models performance is exteremely time consuming if you do not already know the right imputation, encodings, and model to use (which you often do not of course).
 
+# Need to Finish writing out the rest
+
+I wrote most of this in the last day (17/09/2023), but it took longer to finish other projects and I ran out of time. Should be able to finish the rest by the 19th of September. It is mainly just calling already written methods.
+
 ## Implementation Overview
 
 - Data is loaded into a Dataset object. This object takes in both traning and test data pathes, as well as other file/folder information for later storing the data.

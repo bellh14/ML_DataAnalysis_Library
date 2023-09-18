@@ -6,7 +6,7 @@ class Dataset:
 
     def __init__(self, dataset_name: str, train_file_name: str,
                  folde_name: str, test_file_name: str,
-                 validation_split: float = 0.2):
+                 label_name: str, validation_split: float = 0.2):
         self.dataset_name = dataset_name
         self.train_file_name = train_file_name
         self.test_file_name = test_file_name
@@ -15,6 +15,7 @@ class Dataset:
         self.train_data = self.load_train_data()
         self.test_data = self.load_test_data()
 
+        self.label_name = label_name
         self.train_labels = None
         self.test_labels = None
         self.validation_split = validation_split

@@ -11,12 +11,6 @@ class PreprocessingPipeline:
         self.data = data.copy()
         self.imputer = Imputer.Imputer(self.data)
 
-    @staticmethod
-    def split_labels(data: pd.DataFrame,
-                     label: str = 'target') -> pd.DataFrame:
-        labels = data.pop(label)
-        return labels
-
     def remove_null_values(self, save_csv: bool = False) -> pd.DataFrame:
         data = self.imputer.remove_null_values(save_csv=save_csv)
         return data
@@ -70,3 +64,7 @@ class PreprocessingPipeline:
         one_hot_encoder.fit(self.data.train_data)
         one_hot_encoder.transform(self.data.train_data)
         one_hot_encoder.transform(self.data.test_data)
+
+    def split_labels(self) -> None:
+        self.data.train_labels = self.data.train_data.pop(self.data.label_name)
+        self.data.test_labels = self.data.test_data.pop(self.data.label_name)

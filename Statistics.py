@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-import Visualizer
 
 
 class Statistics:
@@ -23,4 +22,3 @@ class Statistics:
 
     def get_null_values(self) -> pd.DataFrame:
         return self.data.isnull().sum()
-    
