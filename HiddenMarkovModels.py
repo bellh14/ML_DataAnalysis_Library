@@ -5,7 +5,8 @@ import tensorflow as tf
 
 class HMM:
 
-    def __init__(self, n_states, n_observations, n_features, n_steps, n_hidden):
+    def __init__(self, n_states, n_observations, n_features,
+                 n_steps, n_hidden):
         self.n_states = n_states
         self.n_observations = n_observations
         self.n_features = n_features

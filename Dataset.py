@@ -68,6 +68,6 @@ class Dataset:
 
     def get_categorical_columns(self) -> pd.DataFrame:
         return self.train_data.select_dtypes(include=[object]).columns
-    
+
     def get_numerical_columns(self) -> pd.DataFrame:
         return self.train_data.select_dtypes(include=[np.number]).columns
