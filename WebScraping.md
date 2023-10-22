@@ -44,4 +44,4 @@ def get_detailed_data(self, tag: str, class_: str = None) -> list:
 
 This method takes in tag and class names for elements on the page the url points to. It then tries to find all occurences of these elements on the page and stores them into a list which is returned.
 
-This method assumes you know you which tags and classess you are looking for already. You can find this information out by insepcting the page source manually. 
+This method assumes you know you which tags and classess you are looking for already. You can find this information out by insepcting the page source manually.
