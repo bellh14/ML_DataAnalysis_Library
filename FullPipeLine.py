@@ -6,11 +6,14 @@ from HyperParameterTuner import HyperParameterTuner
 
 
 class FullPipeLine:
-
-    def __init__(self, data: Dataset, imputation_strategy: str = "0",
-                 model_type: str = "linear_regression",
-                 null_threshold: float = None, visualize: bool = True):
-
+    def __init__(
+        self,
+        data: Dataset,
+        imputation_strategy: str = "0",
+        model_type: str = "linear_regression",
+        null_threshold: float = None,
+        visualize: bool = True,
+    ):
         self.data = data
         self.imputation_strategy = imputation_strategy
         self.model_type = model_type

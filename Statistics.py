@@ -3,17 +3,18 @@ import numpy as np
 
 
 class Statistics:
-
-    def __init__(self, data: pd.DataFrame, file_name: str = None, folder_name: str = "dcmi"):
+    def __init__(
+        self, data: pd.DataFrame, file_name: str = None, folder_name: str = "dcmi"
+    ):
         self.data = data
         self.file_name = file_name
         self.folder_name = folder_name
 
     def save_csv(self, file_name: str, other_data: pd.DataFrame = None):
         if other_data is None:
-            self.data.to_csv(f'dcmi/{file_name}.csv', index=False)
+            self.data.to_csv(f"dcmi/{file_name}.csv", index=False)
         else:
-            other_data.to_csv(f'dcmi/{file_name}.csv', index=False)
+            other_data.to_csv(f"dcmi/{file_name}.csv", index=False)
 
     def describe(self, save_csv: bool = False) -> None:
         print(self.data.describe())

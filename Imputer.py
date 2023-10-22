@@ -3,7 +3,6 @@ from Dataset import Dataset
 
 
 class Imputer:
-
     def __init__(self, data: Dataset):
         self.data = data
         self.base_file_name = self.data.dataset_name
@@ -19,8 +18,7 @@ class Imputer:
         self.data.dropna(inplace=True)
 
         if save_csv:
-            self.data.save_csv_data(
-                f'{self.folder}/{self.base_file_name}_remove_null')
+            self.data.save_csv_data(f"{self.folder}/{self.base_file_name}_remove_null")
 
         return self.data
 
@@ -28,47 +26,48 @@ class Imputer:
         self.data.fillna(0, inplace=True)
 
         if save_csv:
-            self.data.save_csv_data(
-                f'{self.folder}/{self.base_file_name}_null_0_fill')
+            self.data.save_csv_data(f"{self.folder}/{self.base_file_name}_null_0_fill")
 
         return self.data
 
-    def fill_null_values_with_mean(self,
-                                   save_csv: bool = False) -> pd.DataFrame:
+    def fill_null_values_with_mean(self, save_csv: bool = False) -> pd.DataFrame:
         self.data.fillna(self.data.mean(), inplace=True)
 
         if save_csv:
             self.data.save_csv_data(
-                f'{self.folder}/{self.base_file_name}_null_mean_fill')
+                f"{self.folder}/{self.base_file_name}_null_mean_fill"
+            )
 
         return self.data
 
-    def fill_null_values_with_median(self,
-                                     save_csv: bool = False) -> pd.DataFrame:
+    def fill_null_values_with_median(self, save_csv: bool = False) -> pd.DataFrame:
         self.data.fillna(self.data.median(), inplace=True)
 
         if save_csv:
             self.data.save_csv_data(
-                f'{self.folder}/{self.base_file_name}_null_median_fill')
+                f"{self.folder}/{self.base_file_name}_null_median_fill"
+            )
 
         return self.data
 
-    def fill_null_values_with_custom(self, value: str,
-                                     save_csv: bool = False) -> pd.DataFrame:
+    def fill_null_values_with_custom(
+        self, value: str, save_csv: bool = False
+    ) -> pd.DataFrame:
         self.data.fillna(value, inplace=True)
 
         if save_csv:
             self.data.save_csv_data(
-                f'{self.folder}/{self.base_file_name}_null_{value}_fill')
+                f"{self.folder}/{self.base_file_name}_null_{value}_fill"
+            )
 
         return self.data
 
-    def fill_null_values_with_mode(self,
-                                   save_csv: bool = False) -> pd.DataFrame:
+    def fill_null_values_with_mode(self, save_csv: bool = False) -> pd.DataFrame:
         self.data.fillna(self.data.mode(), inplace=True)
 
         if save_csv:
             self.data.save_csv_data(
-                f'{self.folder}/{self.base_file_name}_null_mode_fill')
+                f"{self.folder}/{self.base_file_name}_null_mode_fill"
+            )
 
         return self.data

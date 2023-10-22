@@ -3,10 +3,15 @@ import numpy as np
 
 
 class Dataset:
-
-    def __init__(self, dataset_name: str, train_file_name: str,
-                 folde_name: str, test_file_name: str,
-                 label_name: str, validation_split: float = 0.2):
+    def __init__(
+        self,
+        dataset_name: str,
+        train_file_name: str,
+        folde_name: str,
+        test_file_name: str,
+        label_name: str,
+        validation_split: float = 0.2,
+    ):
         self.dataset_name = dataset_name
         self.train_file_name = train_file_name
         self.test_file_name = test_file_name
@@ -24,16 +29,14 @@ class Dataset:
         self.numerical_columns = self.get_numerical_columns()
 
     def load_train_data(self) -> pd.DataFrame:
-        return pd.read_csv(f'{self.folder_name}/{self.train_file_name}')
+        return pd.read_csv(f"{self.folder_name}/{self.train_file_name}")
 
     def load_test_data(self) -> pd.DataFrame:
-        return pd.read_csv(f'{self.folder_name}/{self.test_file_name}')
+        return pd.read_csv(f"{self.folder_name}/{self.test_file_name}")
 
     def save_csv_data(self, file_name: str) -> None:
-        self.train_data.to_csv(
-            f'{self.folder_name}/{file_name}_train.csv', index=False)
-        self.test_data.to_csv(
-            f'{self.folder_name}/{file_name}_test.csv', index=False)
+        self.train_data.to_csv(f"{self.folder_name}/{file_name}_train.csv", index=False)
+        self.test_data.to_csv(f"{self.folder_name}/{file_name}_test.csv", index=False)
 
     def update_train_data(self, data: pd.DataFrame) -> None:
         self.train_data = data
@@ -55,7 +58,7 @@ class Dataset:
     def get_correlation_matrix(self, full_mat: bool = False) -> pd.DataFrame:
         try:
             if not full_mat:
-                return self.data.corr()['target'].sort_values(ascending=False)
+                return self.data.corr()["target"].sort_values(ascending=False)
             else:
                 return self.data.corr()
         except ValueError:

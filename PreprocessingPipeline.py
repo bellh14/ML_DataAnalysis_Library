@@ -6,7 +6,6 @@ from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 
 
 class PreprocessingPipeline:
-
     def __init__(self, data: Dataset):
         self.data = data.copy()
         self.imputer = Imputer.Imputer(self.data)
@@ -19,19 +18,18 @@ class PreprocessingPipeline:
         data = self.imputer.fill_null_values_with_0(save_csv=save_csv)
         return data
 
-    def fill_null_values_with_mean(self,
-                                   save_csv: bool = False) -> pd.DataFrame:
-
+    def fill_null_values_with_mean(self, save_csv: bool = False) -> pd.DataFrame:
         data = self.imputer.fill_null_values_with_mean(save_csv=save_csv)
         return data
 
-    def fill_null_values_with_median(self,
-                                     save_csv: bool = False) -> pd.DataFrame:
-
+    def fill_null_values_with_median(self, save_csv: bool = False) -> pd.DataFrame:
         data = self.imputer.fill_null_values_with_median(save_csv=save_csv)
         return data
 
-    def fill_null_values_with_custom(self, value: str,) -> pd.DataFrame:
+    def fill_null_values_with_custom(
+        self,
+        value: str,
+    ) -> pd.DataFrame:
         data = self.imputer.fill_null_values_with_custom(value)
         return data
 
