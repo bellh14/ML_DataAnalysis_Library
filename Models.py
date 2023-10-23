@@ -1,7 +1,7 @@
 import pandas as pd
 import tensorflow as tf
 from tensorflow.keras import layers
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.ensemble import RandomForestRegressor
 from Dataset import Dataset
 
@@ -12,6 +12,11 @@ class Models:
 
     def linear_regression(self) -> LinearRegression.Model:
         model = LinearRegression()
+        model.fit(self.data.train_data, self.data.train_labels)
+        return model
+
+    def logistic_regression(self) -> LogisticRegression.Model:
+        model = LogisticRegression()
         model.fit(self.data.train_data, self.data.train_labels)
         return model
 

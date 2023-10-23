@@ -7,7 +7,7 @@ class Dataset:
         self,
         dataset_name: str,
         train_file_name: str,
-        folde_name: str,
+        folder_name: str,
         test_file_name: str,
         label_name: str,
         validation_split: float = 0.2,
@@ -15,7 +15,7 @@ class Dataset:
         self.dataset_name = dataset_name
         self.train_file_name = train_file_name
         self.test_file_name = test_file_name
-        self.folder_name = folde_name
+        self.folder_name = folder_name
 
         self.train_data = self.load_train_data()
         self.test_data = self.load_test_data()
