@@ -1,6 +1,6 @@
 import pandas as pd
 import Imputer
-from sklearn.preprocessing import Normalizer
+from sklearn.preprocessing import Normalizer, MinMaxScaler
 from Dataset import Dataset
 from sklearn.preprocessing import OrdinalEncoder, OneHotEncoder
 
@@ -33,11 +33,16 @@ class PreprocessingPipeline:
         data = self.imputer.fill_null_values_with_custom(value)
         return data
 
-    def normalizer(self) -> None:
-        train_transformer = Normalizer().fit(self.data.train_data)
+    def normalizer(self, normalization_method: str = "l2") -> None:
+        train_transformer = Normalizer(normalization_method).fit(self.data.train_data)
         train_transformer.transform(self.data.train_data)
-        test_transformer = Normalizer().fit(self.data.test_data)
+        test_transformer = Normalizer(normalization_method).fit(self.data.test_data)
         test_transformer.transform(self.data.test_data)
+
+    def min_max_scaler(self) -> None:
+        scaler = MinMaxScaler()
+        scaler.fit(self.data.train_data)
+        scaler.transform(self.data.train_data)
 
     def drop_feature(self, feature: str) -> None:
         self.data.train_data.drop(feature, axis=1, inplace=True)

@@ -10,6 +10,7 @@ class FullPipeLine:
         self,
         data: Dataset,
         imputation_strategy: str = "0",
+        normalization_method: str = "l2",
         model_type: str = "linear_regression",
         null_threshold: float = None,
         visualize: bool = True,
