@@ -29,10 +29,10 @@ class Dataset:
         self.numerical_columns = self.get_numerical_columns()
 
     def load_train_data(self) -> pd.DataFrame:
-        return pd.read_csv(f"{self.folder_name}/{self.train_file_name}")
+        return pd.DataFrame(pd.read_csv(f"{self.folder_name}/{self.train_file_name}"))
 
     def load_test_data(self) -> pd.DataFrame:
-        return pd.read_csv(f"{self.folder_name}/{self.test_file_name}")
+        return pd.DataFrame(pd.read_csv(f"{self.folder_name}/{self.test_file_name}"))
 
     def save_csv_data(self, file_name: str) -> None:
         self.train_data.to_csv(f"{self.folder_name}/{file_name}_train.csv", index=False)
